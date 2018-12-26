@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "107643905632",
+    "firebase_url": "https://sec-quiz.firebaseio.com",
+    "project_id": "sec-quiz",
+    "storage_bucket": "sec-quiz.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107643905632:android:321ae435a0235c84",
+        "android_client_info": {
+          "package_name": "com.rstudio.a3secquiz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107643905632-439tjrijthn3psvaaqslsb4p39a7ns78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rstudio.a3secquiz",
+            "certificate_hash": "630a01d14a34c64c193e78b2b2166318ac39088d"
+          }
+        },
+        {
+          "client_id": "107643905632-rk646p4rtg87td3pdjbk7mm6c2ersi4b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDckxtoSCfxpzAraP7eluo4YInmFXOwK6Q"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107643905632-rk646p4rtg87td3pdjbk7mm6c2ersi4b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
