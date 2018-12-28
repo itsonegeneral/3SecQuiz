@@ -1,73 +1,47 @@
 package com.rstudio.a3secquiz;
 
+import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardItem;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import android.widget.Button;
+import android.widget.TextView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 public class StartActivity extends AppCompatActivity {
 
-    private RewardedVideoAd mVideo;
+
+    private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("player");
+    private Button bt_start, bt_redeem;
+    private static final String TAG = "StartActivity";
+    private TextView tv_coin,tv_life;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StartAppSDK.init(this, "211618215", true);
         setContentView(R.layout.activity_start);
-        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
-        mVideo = MobileAds.getRewardedVideoAdInstance(this);
-        loadAd();
-        mVideo.setRewardedVideoAdListener(new RewardedVideoAdListener() {
+
+        tv_coin = findViewById(R.id.tv_coin_startActivity);
+        tv_life = findViewById(R.id.tv_life_startactivity);
+        reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onRewardedVideoAdLoaded() {
-                Toast.makeText(StartActivity.this, "Loaded", Toast.LENGTH_SHORT).show();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Player player = dataSnapshot.getValue(Player.class);
+                tv_coin.setText(String.valueOf(player.getCoins()));
+                tv_life.setText(String.valueOf(player.getLifes()));
             }
 
             @Override
-            public void onRewardedVideoAdOpened() {
-
-            }
-
-            @Override
-            public void onRewardedVideoStarted() {
-
-            }
-
-            @Override
-            public void onRewardedVideoAdClosed() {
-
-            }
-
-            @Override
-            public void onRewarded(RewardItem rewardItem) {
-
-            }
-
-            @Override
-            public void onRewardedVideoAdLeftApplication() {
-
-            }
-
-            @Override
-            public void onRewardedVideoAdFailedToLoad(int i) {
-
-            }
-
-            @Override
-            public void onRewardedVideoCompleted() {
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });
 
-
-    }
-
-    private void loadAd() {
-        mVideo.loadAd("ca-app-pub-3940256099942544/5224354917",
-                new AdRequest.Builder().build());
     }
 }

@@ -3,63 +3,140 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#DAF7A6"
     android:layout_height="match_parent"
     android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
     tools:context=".StartActivity">
 
 
-    <LinearLayout
-        android:id="@+id/layout_lifeView_start"
-        android:padding="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:gravity="center"
-        android:background="@drawable/border_background"
-        android:layout_margin="10dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:background="@drawable/life_icon"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:id="@+id/tv_life_startactivity"
+        <LinearLayout
+            android:id="@+id/layout_lifeView_start"
             android:layout_width="wrap_content"
-            android:textSize="20sp"
-            android:fontFamily="casual"
-            android:text="2"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_height="wrap_content"
-            tools:layout_editor_absoluteX="123dp"
-            tools:layout_editor_absoluteY="43dp" />
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/border_background"
+            android:gravity="center"
+            android:padding="5dp">
 
-    </LinearLayout>
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/life_icon" />
+
+            <TextView
+                android:id="@+id/tv_life_startactivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="casual"
+                android:gravity="center"
+                android:text="2"
+                android:layout_marginRight="4dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginLeft="4dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:layout_editor_absoluteX="123dp"
+                tools:layout_editor_absoluteY="43dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_coinView_start"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/border_background_coin"
+            android:gravity="center"
+            android:padding="5dp">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/coin_icon" />
+
+            <TextView
+                android:id="@+id/tv_coin_startActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:layout_marginLeft="2dp"
+                android:gravity="center"
+                android:text="2231"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
     <LinearLayout
-        android:id="@+id/layout_coinView_start"
-        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
         android:gravity="center"
-        android:background="@drawable/border_background_coin"
-        android:layout_margin="10dp">
+        android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="30dp"
-            android:background="@drawable/coin_icon"
-            android:layout_height="30dp" />
-        <TextView
+
+
+        <Button
+            android:id="@+id/bt_startGame"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/home_button_background"
+            android:fontFamily="sans-serif-condensed"
+            android:text="@string/start_quiz"
+            android:textSize="20sp" />
+
+        <com.startapp.android.publish.ads.banner.Banner
+            android:id="@+id/startAppBanner1"
             android:layout_width="wrap_content"
-            android:text="2231"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:gravity="center"
-            android:textColor="@color/black"
-            android:textSize="17sp"
             android:layout_height="wrap_content" />
+
+
+        <Button
+            android:id="@+id/bt_redeemCoin"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="4dp"
+            android:background="@drawable/home_button_background"
+            android:fontFamily="sans-serif-condensed"
+            android:shadowColor="#A8A8A8"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:text="@string/redeem_coins"
+            android:textAllCaps="false"
+            android:textSize="20sp" />
+
     </LinearLayout>
+
+    <com.startapp.android.publish.ads.banner.Banner
+        android:id="@+id/startAppBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
