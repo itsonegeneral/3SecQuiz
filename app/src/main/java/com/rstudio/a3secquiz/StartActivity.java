@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.startapp.android.publish.adsCommon.StartAppAd;
 import com.startapp.android.publish.adsCommon.StartAppSDK;
 
 import java.util.Random;
@@ -34,11 +35,13 @@ public class StartActivity extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     public static final String prefKEY = "USERDATA";
     private String userID;
+    private StartAppAd startAppAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StartAppSDK.init(this, "211618215", true);
+        StartAppAd.disableSplash();
         setContentView(R.layout.activity_start);
 
         setValues();
@@ -53,6 +56,7 @@ public class StartActivity extends AppCompatActivity {
             createNewUser();
             Log.d(TAG, "loadUserDetails: NULL Value");
         }else{
+            userID = UserID;
             reference.child(UserID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -119,6 +123,7 @@ public class StartActivity extends AppCompatActivity {
         bt_redeem = findViewById(R.id.bt_redeemCoin);
         editor = preferences.edit();
         bt_start = findViewById(R.id.bt_startGame);
+        startAppAd = new StartAppAd(this);
         bt_watchAndEarn = findViewById(R.id.bt_watchAndEarn);
         tv_coin = findViewById(R.id.tv_coin_startActivity);
         tv_life = findViewById(R.id.tv_life_startactivity);
@@ -129,7 +134,9 @@ public class StartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //Launch watch and earn activity here
-                startActivity(new Intent(StartActivity.this, WatchAndEarnActivity.class));
+                Intent intent = new Intent(StartActivity.this, WatchAndEarnActivity.class);
+                intent.putExtra("UUID",userID);
+                startActivity(intent);
             }
         });
 

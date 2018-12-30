@@ -5,5 +5,7 @@
     <string name="redeem">Redeem</string>
     <string name="redeem_coins">Redeem Coins</string>
     <string name="watch_and_earn">Watch and Earn</string>
+    <string name="earn_20_coins">1.Earn 20 Coins per View</string>
+    <string name="step_2">2.Reward will not be credited if video ad is Closed</string>
 
 </resources>

@@ -21,15 +21,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".StartActivity">
+        <activity
+            android:name=".StartActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RedeemCoinActivity" />
-        <activity android:name=".WatchAndEarnActivity"></activity>
+        <activity
+            android:name=".RedeemCoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".WatchAndEarnActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.OverlayActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <activity
+            android:name="com.startapp.android.publish.adsCommon.activities.FullScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme" />
     </application>
 
 </manifest>

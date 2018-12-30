@@ -3,79 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/layout_background"
     android:layout_height="match_parent"
+    android:background="@color/layout_background"
     android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
     tools:context=".StartActivity">
 
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/layout_lifeView_start"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/border_background"
-            android:gravity="center"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/life_icon" />
-
-            <TextView
-                android:id="@+id/tv_life_startactivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="casual"
-                android:gravity="center"
-                android:text="2"
-                android:layout_marginRight="4dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginLeft="4dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:layout_editor_absoluteX="123dp"
-                tools:layout_editor_absoluteY="43dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_coinView_start"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_margin="10dp"
-            android:background="@drawable/border_background_coin"
-            android:gravity="center"
-            android:padding="5dp">
-
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/coin_icon" />
-
-            <TextView
-                android:id="@+id/tv_coin_startActivity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
-                android:layout_marginLeft="2dp"
-                android:gravity="center"
-                android:text="2231"
-                android:textColor="@color/black"
-                android:textSize="17sp" />
-        </LinearLayout>
-    </RelativeLayout>
+    <include layout="@layout/view_coin_life_header" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -104,6 +38,7 @@
             android:fontFamily="sans-serif-condensed"
             android:text="@string/start_quiz"
             android:textSize="20sp" />
+
         <Button
             android:id="@+id/bt_watchAndEarn"
             android:layout_width="match_parent"
@@ -112,8 +47,8 @@
             android:layout_marginLeft="40dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="40dp"
-            android:layout_marginBottom="10dp"
             android:layout_marginRight="4dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/home_button_background"
             android:fontFamily="sans-serif-condensed"
             android:text="@string/watch_and_earn"
