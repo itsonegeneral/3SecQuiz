@@ -1,11 +1,14 @@
 package com.rstudio.a3secquiz;
 
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,7 +27,7 @@ import com.startapp.android.publish.adsCommon.StartAppSDK;
 import java.util.Random;
 import java.util.UUID;
 
-public class StartActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity  {
 
 
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USERS");
@@ -100,6 +103,7 @@ public class StartActivity extends AppCompatActivity {
                                 editor.apply();
                                 Log.d(TAG, "onComplete: User Created");
                                 loadUserDetails();
+                                showNewUserDialog();
                                 Toast.makeText(getApplicationContext(), "Welcome !", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getApplicationContext(), "Failed, 034", Toast.LENGTH_SHORT).show();
@@ -111,11 +115,36 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(), "Failed , " + databaseError.getMessage().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Failed , " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    private void showNewUserDialog(){
+        LayoutInflater factory = LayoutInflater.from(this);
+        final View deleteDialogView = factory.inflate(R.layout.free_100_coin_dialog, null);
+        final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
+        deleteDialog.setView(deleteDialogView);
+        Button b = deleteDialogView.findViewById(R.id.bt_claimFreeCoin);
+        b.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteDialog.dismiss();
+                reference.child(userID).child("coins").setValue(100).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            Toast.makeText(StartActivity.this,"100 Coins Credited",Toast.LENGTH_SHORT).show();
+                        }else{
+                            Toast.makeText(StartActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+        deleteDialog.show();
     }
 
     private void setValues() {

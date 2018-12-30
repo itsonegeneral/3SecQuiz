@@ -39,7 +39,8 @@ public class WatchAndEarnActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_watch_and_earn);
         setValues();
-        Toast.makeText(this, userID, Toast.LENGTH_SHORT).show();
+
+
         startAppAd.loadAd(StartAppAd.AdMode.REWARDED_VIDEO, new AdEventListener() {
             @Override
             public void onReceiveAd(Ad ad) {
@@ -48,7 +49,7 @@ public class WatchAndEarnActivity extends AppCompatActivity {
 
             @Override
             public void onFailedToReceiveAd(Ad ad) {
-                Log.d(TAG, "onFailedToReceiveAd: "+ ad.getErrorMessage());
+                Log.d(TAG, "onFailedToReceiveAd: " + ad.getErrorMessage());
             }
         });
         reference.child(userID).addValueEventListener(new ValueEventListener() {
@@ -81,14 +82,14 @@ public class WatchAndEarnActivity extends AppCompatActivity {
         startAppAd.setVideoListener(new VideoListener() {
             @Override
             public void onVideoCompleted() {
-                coins = coins+20;
+                coins = coins + 20;
                 reference.child(userID).child("coins").setValue(coins).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(WatchAndEarnActivity.this,"20 Coins Credited",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(WatchAndEarnActivity.this,"Failed ! 445",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(WatchAndEarnActivity.this, "20 Coins Credited", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(WatchAndEarnActivity.this, "Failed ! 445", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

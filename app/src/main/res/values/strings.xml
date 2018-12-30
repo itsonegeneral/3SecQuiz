@@ -7,5 +7,8 @@
     <string name="watch_and_earn">Watch and Earn</string>
     <string name="earn_20_coins">1.Earn 20 Coins per View</string>
     <string name="step_2">2.Reward will not be credited if video ad is Closed</string>
+    <string name="claim">Claim</string>
+    <string name="hello_there">Hello there !</string>
+    <string name="click_to_claim">Click to claim free 100 Coin in your account</string>
 
 </resources>

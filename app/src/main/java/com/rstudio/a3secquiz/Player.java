@@ -4,6 +4,7 @@ public class Player {
     private int coins;
     private int lifes;
     private String name;
+    private int viewedAds;
 
     public Player(){
 
