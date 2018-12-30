@@ -5,5 +5,6 @@
     <color name="colorAccent">#D81B60</color>
     <color name="black">#000</color>
     <color name="coin_color">#fdaa01</color>
+    <color name="layout_background">#786f53</color>
     <color name="white">#fff</color>
 </resources>

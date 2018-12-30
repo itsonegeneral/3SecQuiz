@@ -3,5 +3,5 @@
     <corners android:radius="3dp"/>
     <stroke android:color="@color/coin_color"
         android:width="3dp"/>
-    <solid android:color="#C70039"/>
+    <solid android:color="#cecacb"/>
 </shape>
