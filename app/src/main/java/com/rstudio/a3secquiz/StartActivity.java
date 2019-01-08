@@ -3,6 +3,7 @@ package com.rstudio.a3secquiz;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -11,9 +12,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adcolony.sdk.AdColony;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +30,7 @@ import com.startapp.android.publish.adsCommon.StartAppSDK;
 import java.util.Random;
 import java.util.UUID;
 
-public class StartActivity extends AppCompatActivity  {
+public class StartActivity extends AppCompatActivity {
 
 
     private DatabaseReference reference = FirebaseDatabase.getInstance().getReference("USERS");
@@ -39,14 +42,15 @@ public class StartActivity extends AppCompatActivity  {
     public static final String prefKEY = "USERDATA";
     private String userID;
     private StartAppAd startAppAd;
-
+    private boolean doubleBackToExitPressedOnce = false;
+    private ProgressBar pgBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StartAppSDK.init(this, "211618215", true);
         StartAppAd.disableSplash();
         setContentView(R.layout.activity_start);
-
+        AdColony.configure(this, "appaee1c999acb0489b96", "vz97cb81ad62d3489e8a");
         setValues();
         setListners();
         loadUserDetails();
@@ -58,28 +62,33 @@ public class StartActivity extends AppCompatActivity  {
         if (UserID == null) {
             createNewUser();
             Log.d(TAG, "loadUserDetails: NULL Value");
-        }else{
+        } else {
             userID = UserID;
+            pgBar.setVisibility(View.VISIBLE);
             reference.child(UserID).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        try{
+                    if (dataSnapshot.exists()) {
+                        try {
                             Player player = dataSnapshot.getValue(Player.class);
                             tv_coin.setText(String.valueOf(player.getCoins()));
                             tv_life.setText(String.valueOf(player.getLifes()));
-                        }catch(NullPointerException e){
+                        } catch (NullPointerException e) {
                             e.printStackTrace();
                         }
+                        pgBar.setVisibility(View.INVISIBLE);
+                    }else{
+                        pgBar.setVisibility(View.INVISIBLE);
                     }
                 }
 
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    pgBar.setVisibility(View.INVISIBLE);
+                    Log.d(TAG, "onCancelled: " + databaseError.getMessage());
                 }
             });
-            Log.d(TAG, "loadUserDetails: User ID got : "+UserID);
+            Log.d(TAG, "loadUserDetails: User ID got : " + UserID);
         }
 
     }
@@ -99,7 +108,7 @@ public class StartActivity extends AppCompatActivity  {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                editor.putString("USERID",userID);
+                                editor.putString("USERID", userID);
                                 editor.apply();
                                 Log.d(TAG, "onComplete: User Created");
                                 loadUserDetails();
@@ -122,7 +131,7 @@ public class StartActivity extends AppCompatActivity  {
 
     }
 
-    private void showNewUserDialog(){
+    private void showNewUserDialog() {
         LayoutInflater factory = LayoutInflater.from(this);
         final View deleteDialogView = factory.inflate(R.layout.free_100_coin_dialog, null);
         final AlertDialog deleteDialog = new AlertDialog.Builder(this).create();
@@ -135,10 +144,10 @@ public class StartActivity extends AppCompatActivity  {
                 reference.child(userID).child("coins").setValue(100).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            Toast.makeText(StartActivity.this,"100 Coins Credited",Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(StartActivity.this,"Failed",Toast.LENGTH_SHORT).show();
+                        if (task.isSuccessful()) {
+                            Toast.makeText(StartActivity.this, "100 Coins Credited", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(StartActivity.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -148,9 +157,10 @@ public class StartActivity extends AppCompatActivity  {
     }
 
     private void setValues() {
-        preferences =getSharedPreferences(prefKEY, MODE_PRIVATE);
+        preferences = getSharedPreferences(prefKEY, MODE_PRIVATE);
         bt_redeem = findViewById(R.id.bt_redeemCoin);
         editor = preferences.edit();
+        pgBar = findViewById(R.id.pgBar_watch_coin_life);
         bt_start = findViewById(R.id.bt_startGame);
         startAppAd = new StartAppAd(this);
         bt_watchAndEarn = findViewById(R.id.bt_watchAndEarn);
@@ -164,7 +174,7 @@ public class StartActivity extends AppCompatActivity  {
             public void onClick(View v) {
                 //Launch watch and earn activity here
                 Intent intent = new Intent(StartActivity.this, WatchAndEarnActivity.class);
-                intent.putExtra("UUID",userID);
+                intent.putExtra("UUID", userID);
                 startActivity(intent);
             }
         });
@@ -186,5 +196,21 @@ public class StartActivity extends AppCompatActivity  {
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
     }
 }
